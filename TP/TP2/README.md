@@ -110,6 +110,8 @@ cd quarkus-demo
 
 Cette commande crée un projet Maven avec le support REST de Quarkus.
 
+Ou bien utiliser https://code.quarkus.io/
+
 ### Création d'une ressource REST
 
 Créer la classe `HelloResource.java` :
