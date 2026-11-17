@@ -38,7 +38,7 @@ mvn --version
 java -version
 ```
 
-## Création d'un premier microserice
+## Création d'un premier microservice
 
 Ouvrir un terminal et lancer la commande de création du projet.
 

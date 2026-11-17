@@ -1,0 +1,24 @@
+package io.morgan.demos;
+
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+
+@Path("/hello")
+public class GreetingResource {
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "Hello world !!!!";
+    }
+
+    @GET
+    @Path("/alice")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String helloAlice() {
+        return "Hello alice";
+    }
+
+}
