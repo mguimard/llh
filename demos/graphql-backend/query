@@ -1,0 +1,12 @@
+{
+    "query" : "
+        query {
+            pizzas(category: \"cat1\") {
+                name
+            }
+            users {
+                age
+            }
+        }  
+    "
+}
