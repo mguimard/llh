@@ -1,5 +1,10 @@
 # graphql-backend
 
+
+```
+curl -s localhost:8080/graphql -H"Content-Type: application/json"  -d @query | jq
+```
+
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
