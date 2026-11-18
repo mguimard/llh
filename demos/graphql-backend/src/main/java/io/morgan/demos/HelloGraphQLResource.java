@@ -1,10 +1,13 @@
 package io.morgan.demos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
+import org.eclipse.microprofile.graphql.Mutation;
+import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.Query;
 
 import io.morgan.demos.HelloGraphQLResource.Pizza;
@@ -23,9 +26,9 @@ public class HelloGraphQLResource {
             new Pizza("p2", "cat1"),
             new Pizza("p3", "cat2"));
 
-    static List<User> users = List.of(
+    static List<User> users = new ArrayList<>(List.of(
             new User("u1", 20),
-            new User("u2", 22));
+            new User("u2", 22)));
 
     @Query("pizzas")
     @Description("Retreive pizzas")
@@ -41,5 +44,37 @@ public class HelloGraphQLResource {
     @Description("Retreive users")
     public List<User> getUsers() {
         return users;
+    }
+
+    /*
+     * mutation{
+     * addUser(login: "alice", age: 24){
+     * login
+     * }
+     * }
+     */
+    @Mutation
+    public User addUser(@Name("login") String login, @Name("age") int age) {
+        User u = new User(login, age);
+        users.add(u);
+        return u;
+    }
+
+    /*
+     * mutation{
+     * deleteUser(login: "alice")
+     * }
+     */
+    @Mutation
+    public boolean deleteUser(@Name("login") String login) {
+
+        User user = users.stream().filter(u -> u.login().equals(login)).findFirst().orElse(null);
+
+        if (user == null) {
+            return false;
+        }
+
+        users.remove(user);
+        return true;
     }
 }
