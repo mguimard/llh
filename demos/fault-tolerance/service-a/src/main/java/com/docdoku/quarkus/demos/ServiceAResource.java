@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.eclipse.microprofile.faulttolerance.Bulkhead;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.exceptions.CircuitBreakerOpenException;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
@@ -45,9 +46,14 @@ public class ServiceAResource {
     private AtomicInteger counter = new AtomicInteger(0);
 
     @CircuitBreaker(requestVolumeThreshold = 10, failureRatio = 0.5, failOn = ProcessingException.class)
+    @Fallback (applyOn = CircuitBreakerOpenException.class, fallbackMethod = "fallbackCircuit")
     public String callServiceBWithCircuitBreaker() {
         Log.info("Trying....");
         return serviceB.hello();
+    }
+
+    public String fallbackCircuit() {
+        return "circuit opened";
     }
 
     @Fallback(fallbackMethod = "fallbackNetworkIssue", applyOn = { ProcessingException.class })
