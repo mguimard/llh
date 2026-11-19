@@ -58,6 +58,12 @@ Modification ! Rendre la configuration possible en environnement :
 kafka.bootstrap.servers=${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
 ```
 
+Ajouter l'extension pour gérer les builds docker
+
+```bash
+./mvnw quarkus:add-extension -Dextensions='quarkus-container-image-docker'
+```
+
 ## Construire l'application en mode JVM
 
 Dans les deux projets, construire les images JVM :
